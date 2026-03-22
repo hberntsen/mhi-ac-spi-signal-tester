@@ -1,4 +1,5 @@
 #include <inttypes.h>
+#include "freertos/FreeRTOS.h"
 
 #include <math.h>
 #include <string.h>
@@ -264,8 +265,10 @@ void init(const Config& config) {
         .data5_io_num = -1,
         .data6_io_num = -1,
         .data7_io_num = -1,
+        .data_io_default_level = 1,
         .max_transfer_sz = 0,
         .flags = SPICOMMON_BUSFLAG_GPIO_PINS | SPICOMMON_BUSFLAG_SLAVE,
+        .isr_cpu_id = ESP_INTR_CPU_AFFINITY_AUTO,
         .intr_flags = 0,
     };
 
@@ -290,6 +293,8 @@ void init(const Config& config) {
       .clk_src = GPTIMER_CLK_SRC_DEFAULT,
       .direction = GPTIMER_COUNT_UP,
       .resolution_hz = 1000000, // Plenty of resolution to encode a rough 20ms ;)
+      .intr_priority = 0,
+      .flags = {}
     };
     ESP_ERROR_CHECK(gptimer_new_timer(&timer_config, &cs_timer));
     gptimer_alarm_config_t timer_alarm_config = {

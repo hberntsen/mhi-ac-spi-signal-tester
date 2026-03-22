@@ -4,7 +4,7 @@ This project is a stripped down version of [mhi-ac-ctrl-esp32-c3](https://github
 
 ## Flashing
 
-1. Make sure to set up the ESP-IDF v5.5.3 toolchain. See the [Espressif documentation](https://docs.espressif.com/projects/esp-idf/en/v5.5.3/esp32s3/get-started/linux-macos-setup.html)
+1. Make sure to set up the ESP-IDF v6.0.0 toolchain. See the [Espressif documentation](https://docs.espressif.com/projects/esp-idf/en/v6.0/esp32s3/get-started/linux-macos-setup-legacy.html)
 2. Run `idf.py set-target esp32s3`.
 3. Switch the log to USB: `idf.py menuconfig`. Search for `ESP_CONSOLE_USB_SERIAL_JTAG` and select `USB Serial/JTAG Controller`.
 4. Configure the CLK and MOSI pins in the `main.cpp` file.
