@@ -339,8 +339,8 @@ void app_main(void)
     Config c = {
       .mosi_pin = 48,
       .miso_pin = 34,
-      //.sclk_pin = 21
-      .sclk_pin = 43
+      .sclk_pin = 21
+      //.sclk_pin = 43
     };
 
     init(c);
