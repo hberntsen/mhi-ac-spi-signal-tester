@@ -361,29 +361,13 @@ void app_main(void)
       .mosi_pin = 48,
       //.miso_pin = 34,
       .miso_pin = 40,
-      //.sclk_pin = 21
-      .sclk_pin = 43
+      .sclk_pin = 21
+      //.sclk_pin = 43
     };
 
     vTaskDelayMs(1000);
 
     init(c);
     rmt_poll_task_handle = xTaskCreateStatic(rmt_init, "rmt_task", STACK_SIZE, &c, 10, xStack2, &xTaskBuffer2);
-    for(;;) {
-      vTaskDelayMs(10000);
-      ESP_LOGI(TAG, "============== Switching over to pin 21");
-      gpio_dump_io_configuration(stdout, (1ULL << 21));
-      ESP_LOGI(TAG, "GPIO_PIN21_REG: 0x%lx\n", REG_READ(GPIO_PIN21_REG));
-      ESP_LOGI(TAG, "IO_MUX_GPIO21_REG: 0x%lx", REG_READ(IO_MUX_GPIO21_REG));
-      esp_rom_gpio_connect_in_signal(21, spi_periph_signal[RCV_HOST].spiclk_in, false);
-      esp_rom_gpio_connect_in_signal(21, RMT_SIG_IN3_IDX, false);
-      vTaskDelayMs(10000);
-      ESP_LOGI(TAG, "============== Switching over to pin 43");
-      gpio_dump_io_configuration(stdout, (1ULL << 43));
-      ESP_LOGI(TAG, "GPIO_PIN43_REG: 0x%lx", REG_READ(GPIO_PIN43_REG));
-      ESP_LOGI(TAG, "IO_MUX_GPIO43_REG: 0x%lx", REG_READ(IO_MUX_GPIO43_REG));
-      esp_rom_gpio_connect_in_signal(43, spi_periph_signal[RCV_HOST].spiclk_in, false);
-      esp_rom_gpio_connect_in_signal(43, RMT_SIG_IN3_IDX, false);
-    }
 }
 }
