@@ -97,6 +97,7 @@ static DMA_ATTR spi_dma_buf_t sendbuf;
 static DMA_ATTR spi_dma_buf_t recvbuf;
 
 static uint32_t frame_errors = 0;
+static uint32_t frame_oks = 0;
 
 static bool validate_signature(uint8_t sb0, uint8_t sb1, uint8_t sb2) {
   return (sb0 & 0xfe) == 0x6c && sb1 == 0x80 && sb2 == 0x04;
@@ -172,7 +173,7 @@ static void mhi_poll_task(void *arg)
             ESP_LOGW(TAG, "error %i . trans len: %i", err, spi_slave_trans.trans_len);
             frame_errors++;
         } else {
-            ESP_LOGW(TAG, "Frame OK");
+            ESP_LOGW(TAG, "Frame OK (%lu / %lu)", frame_oks, frame_oks + frame_errors);
         }
         err = 0;
 
@@ -203,6 +204,7 @@ static void mhi_poll_task(void *arg)
           frame_errors++;
           continue;
         }
+        frame_oks++;
     }
 }
 
