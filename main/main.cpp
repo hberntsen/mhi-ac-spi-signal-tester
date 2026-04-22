@@ -251,7 +251,6 @@ void init(const Config& config) {
     io_conf.pin_bit_mask = (1ULL<<config.sclk_pin);
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.pull_up_en = GPIO_PULLUP_ENABLE;                                     // required to prevent abort() caused by floating pin when daughtboard not connected
-    io_conf.intr_type = GPIO_INTR_NEGEDGE;
     gpio_config(&io_conf);
 
 
