@@ -335,7 +335,7 @@ static void rmt_init(void *arg) {
 
     rmt_receive_config_t recv_cfg = {};
     recv_cfg.signal_range_min_ns = 0;
-    recv_cfg.signal_range_max_ns = IDLE_THRESHOLD_US * 1000 * 10;
+    recv_cfg.signal_range_max_ns = IDLE_THRESHOLD_US * 1000;
     // flags.en_partial_rx defaults to false, which is what we want
     ESP_ERROR_CHECK(rmt_receive(rx_chan, rmt_buf, sizeof(rmt_buf), &recv_cfg));
 
