@@ -14,6 +14,7 @@
 #include "soc/gpio_sig_map.h"
 #include "soc/gpio_reg.h"
 #include "soc/io_mux_reg.h"
+#include "driver/gpio_filter.h"
 
 #undef LOG_LOCAL_LEVEL
 #define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE
@@ -257,6 +258,12 @@ void init(const Config& config) {
     io_conf.pin_bit_mask = (1ULL<<21);
     gpio_config(&io_conf);
 
+    gpio_pin_glitch_filter_config_t clk_glitch_filter = {
+        .clk_src = GLITCH_FILTER_CLK_SRC_DEFAULT,
+        .gpio_num = static_cast<gpio_num_t>(config.sclk_pin),
+    };
+    gpio_glitch_filter_handle_t clk_glitch_filter_handle;
+    ESP_ERROR_CHECK(gpio_new_pin_glitch_filter(&clk_glitch_filter, &clk_glitch_filter_handle));
 
     mhi_poll_task_handle = xTaskCreateStatic(mhi_poll_task, "mhi_task", STACK_SIZE, NULL, 10, xStack, &xTaskBuffer);
 }
