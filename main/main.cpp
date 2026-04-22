@@ -31,7 +31,7 @@
 static rmt_symbol_word_t rmt_buf[RMT_SYMBOLS] __attribute__((aligned(4)));
 
 
-static const char *TAG = "MHI-AC-CTRL-core";
+static const char *TAG = "main";
 
 #define vTaskDelayMs(ms)            vTaskDelay((ms)/portTICK_PERIOD_MS)
 
