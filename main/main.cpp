@@ -270,7 +270,7 @@ void init(const Config& config) {
 
 static void print_waveform(const rmt_symbol_word_t *syms, size_t count)
 {
-    printf("Captured %d symbols (%d clock pulses):\n", (int)count, (int)count);
+    printf("Captured %d symbols:\n", (int)count);
     if( count == 264)
     {
       bool state = syms[0].level0;
